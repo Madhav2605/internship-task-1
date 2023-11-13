@@ -1,0 +1,52 @@
+import numpy as np
+import pandas as pd
+
+d=pd.read_csv("topanime.csv")
+d.head
+print(d.isnull())
+
+a=d.isnull().sum()
+print(a)
+
+d.dropna()
+
+a=d.isnull().sum()
+print(a)
+
+total = np.product(d.shape)
+t_missing= a.sum()
+(t_missing/total) * 100
+
+d.fillna(method = 'bfill', axis=0).fillna(0)
+
+a=d.isnull().sum()
+print(a)
+
+total = np.product(d.shape)
+t_missing= a.sum()
+(t_missing/total) * 100
+
+d.head(40)
+
+from matplotlib import pyplot as plt
+import seaborn as sns
+figsize = (12, 1.2 * len(_df_53['Genre'].unique()))
+plt.figure(figsize=figsize)
+sns.violinplot(_df_53, x='Rank', y='Genre', inner='stick', palette='Dark2')
+sns.despine(top=True, right=True, bottom=True, left=True)
+
+from matplotlib import pyplot as plt
+import seaborn as sns
+import pandas as pd
+plt.subplots(figsize=(8, 8))
+df_2dhist = pd.DataFrame({
+    x_label: grp['Genre'].value_counts()
+    for x_label, grp in _df_48.groupby('Title')
+})
+sns.heatmap(df_2dhist, cmap='viridis')
+plt.xlabel('Title')
+_ = plt.ylabel('Genre')
+
+from matplotlib import pyplot as plt
+_df_1['Popularity'].plot(kind='hist', bins=20, title='Popularity')
+plt.gca().spines[['top', 'right',]].set_visible(False)
