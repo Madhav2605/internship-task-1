@@ -1,1 +1,29 @@
+import requests
+from bs4 import BeautifulSoup
 
+# Define the URL of the product page
+url = "https://www.flipkart.com/mobiles/apple-iphone-14-pro/p/itmeb40a07a81cd46?pid=ITMEB40A07A81CD46"
+
+# Send a GET request to the URL and store the response
+response = requests.get(url)
+
+# Check if the request was successful
+if response.status_code == 200:
+    # Parse the HTML content using Beautiful Soup
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    # Extract the product name
+    product_name = soup.find('h1', class_='fs-25').text
+
+    # Extract the product specifications
+    specifications = {}
+    for specification_element in soup.find_all('div', class_='col col-3-12'):
+        specification_label = specification_element.find('span', class_='_2qR-z9').text.strip()
+        specification_value = specification_element.find('p', class_='_24tuvD').text.strip()
+        specifications[specification_label] = specification_value
+
+    # Print the product name and specifications
+    print(f"Product Name: {product_name}")
+    print(f"Specifications: {specifications}")
+else:
+    print("Error: Request to Flipkart failed")
